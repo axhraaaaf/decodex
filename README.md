@@ -27,15 +27,20 @@
 ## 📦 Installation & Setup
 
 ### Local Setup (Go + Python)
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/YOUR_USERNAME/decodeX.git
-   cd decodeX
-   ```
-2. **Install Python dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
+### 1. Global Installation (Recommended)
+To use the `decodex` command from anywhere:
+```bash
+git clone https://github.com/YOUR_USERNAME/decodeX.git
+cd decodeX
+pip install .
+```
+Now you can simply run `decodex` in your terminal!
+
+### 2. Manual Installation
+```bash
+pip install -r requirements.txt
+python main.py --help
+```
 3. **Build the TUI**:
    ```bash
    go build -o decodeX main.go

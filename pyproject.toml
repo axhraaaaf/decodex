@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "decodeX"
+version = "2.0.0"
+description = "Professional cybersecurity toolkit for decoding and malware triage"
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [
+    { name = "Achraaf" }
+]
+license = { text = "MIT" }
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Security",
+]
+dependencies = [
+    "pefile>=2024.8.26",
+    "rich>=13.7.0",
+    "pyfiglet>=1.0.2",
+    "yara-python>=4.5.4",
+]
+
+[project.scripts]
+decodex = "decodeX.main:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["decodeX*"]
