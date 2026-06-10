@@ -277,6 +277,35 @@ def _inject_pe_findings(results: dict, plugin_results: list) -> None:
         results["file_summary"]["architecture"] = pe_result["architecture"]
 
 
+def _inject_yara_findings(results: dict, plugin_results: list) -> None:
+    """Surface YARA signature hits into the high_value_findings report section."""
+    yara_result = None
+    for entry in plugin_results:
+        if entry.get("plugin") == "yara":
+            yara_result = entry.get("result", {})
+            break
+
+    if not yara_result or yara_result.get("error") or not yara_result.get("detailed_findings"):
+        return
+
+    hvf = results.setdefault("analysis", {}).setdefault("high_value_findings", [])
+
+    for finding in yara_result["detailed_findings"]:
+        rule_name = finding.get("rule")
+        meta = finding.get("metadata", {})
+        
+        # Determine priority based on rule metadata or default
+        priority = meta.get("priority", meta.get("severity", "medium")).lower()
+        if priority not in ["low", "medium", "high"]:
+            priority = "medium"
+
+        hvf.append({
+            "finding": f"YARA match: {rule_name}",
+            "evidence": meta.get("description", f"Matched {finding.get('matches', 0)} strings"),
+            "priority": priority,
+        })
+
+
 def handle_analyze_all(args: argparse.Namespace) -> int:
     try:
         Target = Path(args.target)
@@ -299,6 +328,9 @@ def handle_analyze_all(args: argparse.Namespace) -> int:
             
             # Surface high-fidelity PE findings from PEPlugin into the report
             _inject_pe_findings(results, plugin_results)
+            
+            # Surface YARA signature hits
+            _inject_yara_findings(results, plugin_results)
 
             # Re-calculate risk score based on plugin findings
             from decodeX.core.risk_engine import calculate_risk

@@ -5,6 +5,9 @@ from pathlib import Path
 from typing import Any, Dict, List
 
 from decodeX.framework.plugin_manager import PluginManager
+from decodeX.plugins.entropy_plugin import EntropyPlugin
+from decodeX.plugins.pe_plugin import PEPlugin
+from decodeX.plugins.yara_plugin import YaraPlugin
 
 logger = logging.getLogger(__name__)
 
@@ -14,6 +17,10 @@ class Engine:
     def __init__(self, plugin_manager: PluginManager):
         """Initialize the engine with a provided PluginManager."""
         self.plugin_manager = plugin_manager
+        # Register default plugins
+        self.plugin_manager.register_plugin("entropy", EntropyPlugin())
+        self.plugin_manager.register_plugin("pe", PEPlugin())
+        self.plugin_manager.register_plugin("yara", YaraPlugin())
         # Ensure plugins are loaded
         if not self.plugin_manager.get_all_plugins():
             self.plugin_manager.load_plugins()
