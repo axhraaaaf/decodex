@@ -1,12 +1,29 @@
 import os
+import sys
 import yara
 from pathlib import Path
 from typing import Any, Dict, List
+
+# Add the project root to sys.path to allow standalone execution
+if __name__ == "__main__":
+    sys.path.append(str(Path(__file__).parent.parent.parent))
 
 from decodeX.framework.plugin_base import Plugin
 
 class YaraPlugin(Plugin):
     """Plugin to perform signature-based detection using YARA."""
+
+    @property
+    def name(self) -> str:
+        return "yara"
+
+    @property
+    def version(self) -> str:
+        return "1.0.0"
+
+    @property
+    def description(self) -> str:
+        return "Signature-based detection using YARA rules."
 
     def __init__(self):
         super().__init__()
@@ -61,3 +78,18 @@ class YaraPlugin(Plugin):
             "detailed_findings": findings,
             "count": len(matches_summary)
         }
+
+if __name__ == "__main__":
+    import json
+    # Quick test if run directly
+    if len(sys.argv) > 1:
+        target = Path(sys.argv[1])
+        if target.exists():
+            print(f"[*] Standalone YARA Scan for: {target}")
+            plugin = YaraPlugin()
+            result = plugin.analyze(target)
+            print(json.dumps(result, indent=2))
+        else:
+            print(f"[!] Target not found: {target}")
+    else:
+        print("Usage: python yara_plugin.py <file_to_scan>")
