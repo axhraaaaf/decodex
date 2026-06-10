@@ -20,11 +20,8 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
-# Copy python backend files
-COPY framework ./framework
-COPY core ./core
-COPY plugins ./plugins
-COPY utils ./utils
+# Copy the package
+COPY decodeX ./decodeX
 COPY requirements.txt ./
 COPY main.py ./
 
