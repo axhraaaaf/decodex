@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+build/
+dist/
+*.egg-info/
+*.report.json
+output.txt
+test_yara.txt
+debug_yara.txt
+
+# Go
+bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+decodeX
+decodex
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+.dockerignore

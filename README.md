@@ -73,6 +73,23 @@ You can run DecodeX as a containerized tool without installing local dependencie
 - `plugins/`: Pluggable analysis modules (PE, XOR, etc.).
 - `Dockerfile`: Multi-stage build for Go/Python hybrid environment.
 - `.github/workflows/`: CI/CD for automated builds.
+- `decodeX/rules/`: YARA signature rules (Add your own `.yar` files here).
+
+---
+
+## 🛡️ v3.0 New Feature: YARA Signature Engine
+
+DecodeX now supports industrial-grade signature matching for malware family detection.
+
+### Usage
+- **Full Dashboard Analysis**: `python -m decodeX analyze <file>`
+- **Direct Plugin Test**: `python decodeX/plugins/yara_plugin.py <file>`
+
+### Troubleshooting "Module Not Found: yara"
+If your IDE (VS Code) flags `import yara` as an error:
+1. Ensure your IDE is using the Python interpreter in `.venv/Scripts/python.exe`.
+2. Run `pip install yara-python` inside your terminal to ensure it's in the global/local path.
+3. Restart your IDE's Language Server (e.g., `Pylance: Restart Language Server` in VS Code).
 
 ---
 
