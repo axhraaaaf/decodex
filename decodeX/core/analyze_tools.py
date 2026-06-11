@@ -1626,6 +1626,7 @@ def print_analysis(
     risk_score: int | None = None,
     verdict: str | None = None,
     categorized_strings: dict[str, list[str]] | None = None,
+    yara_results: list[dict[str, Any]] | None = None,
 ) -> None:
     """Print a complete file analysis report."""
     rows: list[tuple[str, str]] = [
@@ -1681,6 +1682,26 @@ def print_analysis(
         )
     else:
         print_info("No suspicious indicators found by the current heuristic set.")
+
+    if yara_results:
+        print_table(
+            "YARA signature matches",
+            (
+                ("Rule Name", "bold magenta"),
+                ("Severity", "bold"),
+                ("Description", "white"),
+                ("Hits", "cyan"),
+            ),
+            (
+                (
+                    finding.get("rule", "Unknown"),
+                    _severity_label(finding.get("metadata", {}).get("severity", finding.get("metadata", {}).get("priority", "Medium")).capitalize()),
+                    finding.get("metadata", {}).get("description", "No description provided."),
+                    str(finding.get("matches", 0)),
+                )
+                for finding in yara_results
+            ),
+        )
 
     if analysis.strings:
         print_table(

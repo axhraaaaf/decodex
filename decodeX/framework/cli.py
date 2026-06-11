@@ -352,11 +352,19 @@ def handle_analyze_all(args: argparse.Namespace) -> int:
         else:
             limited_strings = analysis.strings[:args.strings]
             compact_analysis = dataclasses.replace(analysis, strings=limited_strings)
+            
+            # Extract YARA detailed findings for the UI table
+            yara_table_data = []
+            yara_plugin_entry = next((e for e in plugin_results if e.get("plugin") == "yara"), None)
+            if yara_plugin_entry:
+                yara_table_data = yara_plugin_entry.get("result", {}).get("detailed_findings", [])
+
             print_analysis(
                 compact_analysis,
                 risk_score=results["file_summary"]["risk_score"],
                 verdict=results["file_summary"]["verdict"],
                 categorized_strings=results.get("strings"),
+                yara_results=yara_table_data,
             )
             print_info(f"\nFull JSON report saved to: {output_path}")
             

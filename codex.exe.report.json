@@ -388560,6 +388560,14 @@
         "results": [],
         "findings": []
       }
+    },
+    {
+      "plugin": "yara",
+      "result": {
+        "matches": [],
+        "detailed_findings": [],
+        "count": 0
+      }
     }
   ],
   "plugins_error": "'list' object has no attribute 'get'"
