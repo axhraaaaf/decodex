@@ -1479,51 +1479,7 @@ def find_suspicious_indicators(
     return indicators
 
 
-def register_subcommand(
-    subparsers: argparse._SubParsersAction[argparse.ArgumentParser],
-) -> None:
-    """Register malware-analysis CLI command."""
-    parser = subparsers.add_parser(
-        COMMAND_NAME,
-        help="Run malware-analysis style file triage.",
-        description=(
-            "Analyze hashes, entropy, magic bytes, strings, and suspicious indicators."
-        ),
-    )
-    parser.add_argument("path", help="Path to the file to analyze.")
-    parser.add_argument(
-        "-s",
-        "--strings",
-        type=int,
-        default=DEFAULT_STRING_LIMIT,
-        help=f"Maximum extracted strings to display (default: {DEFAULT_STRING_LIMIT}).",
-    )
-    parser.add_argument(
-        "--min-string",
-        type=int,
-        default=DEFAULT_MIN_STRING_LENGTH,
-        help=f"Minimum printable string length (default: {DEFAULT_MIN_STRING_LENGTH}).",
-    )
-    parser.set_defaults(handler=handle_analyze_command)
-
-
-def handle_analyze_command(args: argparse.Namespace) -> int:
-    """Handle malware-analysis file triage."""
-    try:
-        analysis = run_with_status(
-            "Analyzing file metadata, strings, and indicators...",
-            lambda: analyze_file(
-                args.path,
-                string_limit=args.strings,
-                min_string_length=args.min_string,
-            ),
-        )
-    except (OSError, ValueError) as exc:
-        print_error(f"Analyze error: {exc}")
-        return 2
-
-    print_analysis(analysis)
-    return 0
+# Legacy handle_analyze_command removed in favor of framework.cli.handle_analyze_all
 
 
 

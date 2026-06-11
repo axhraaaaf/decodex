@@ -20,7 +20,6 @@ from decodeX.utils import CommandHandler, DecodeXArgumentParser, print_error
 from decodeX.utils.console import EXAMPLES_TEXT, print_banner
 
 COMMAND_REGISTRARS = (
-    analyze_tools.register_subcommand,
     base64_tools.register_subcommand,
     hex_tools.register_subcommand,
     xor_tools.register_subcommand,
