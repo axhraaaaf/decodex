@@ -107,7 +107,7 @@ pip install .
 ### 2. Full Installation (with TUI)
 1. **Clone the repo**:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/decodeX.git
+   git clone https://github.com/axhraaaaf/decodeX.git
    cd decodeX
    ```
 2. **Setup Python Environment**:
