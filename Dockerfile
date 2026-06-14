@@ -4,10 +4,10 @@
 FROM golang:1.22 AS builder
 
 WORKDIR /app
-COPY go.mod go.sum ./
+COPY tui/go.mod tui/go.sum ./
 RUN go mod download
 
-COPY main.go ./
+COPY tui/main.go ./
 RUN go build -o decodeX main.go
 
 # Stage 2: Setup Python environment and copy the TUI

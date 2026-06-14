@@ -1,6 +1,54 @@
-# DecodeX v2
+<div align="center">
+  <img src="https://raw.githubusercontent.com/YOUR_USERNAME/decodeX/main/assets/decodex_banner.png" width="100%" alt="decodeX Banner">
+  
+  <br />
 
-**DecodeX** is a professional-grade cybersecurity toolkit and terminal user interface (TUI) designed for malware analysis, data decoding, and offensive security research. It wraps a powerful Python analysis engine in a polished, high-performance Go-based dashboard.
+  <h1>🛡️ decodeX v3.0</h1>
+
+  <p align="center">
+    <b>Professional cybersecurity toolkit for malware triage and multi-branch decoding.</b>
+    <br />
+    <i>Sleek Go-based TUI | Powerful Python Analysis Engine | Industrial-Grade YARA Matching</i>
+  </p>
+
+  <p align="center">
+    <img src="https://img.shields.io/badge/Python-3.12+-blue?style=for-the-badge&logo=python" alt="Python Version">
+    <img src="https://img.shields.io/badge/Go-1.22+-00ADD8?style=for-the-badge&logo=go" alt="Go Version">
+    <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License">
+    <img src="https://img.shields.io/badge/PRs-Welcome-brightgreen?style=for-the-badge" alt="PRs Welcome">
+  </p>
+</div>
+
+---
+
+## 📖 Table of Contents
+- [What is decodeX?](#-what-is-decodex)
+- [Why decodeX?](#-why-decodex)
+- [Features](#-features)
+- [Architecture](#-architecture)
+- [Installation](#-installation)
+- [Quick Start](#-quick-start)
+- [Roadmap](#-roadmap)
+- [Contributing](#-contributing)
+- [License](#-license)
+
+---
+
+## 🔍 What is decodeX?
+**decodeX** is a professional-grade cybersecurity suite designed to bridge the gap between complex binary analysis and developer productivity. It combines a high-performance **Go-based Terminal User Interface (TUI)** with a modular **Python analysis engine** to provide a seamless, interactive experience for security researchers and SOC analysts.
+
+## 💡 Why decodeX?
+Modern malware uses multi-layered obfuscation and hidden signatures that standard tools often miss. **decodeX** stands out because:
+*   **Intelligent Pathfinding**: Our "Branch & Validate" engine explores thousands of decoding paths automatically.
+*   **Hybrid Power**: The safety and data-science ecosystem of Python meets the speed and UX of Go.
+*   **Extensible by Design**: A true plugin-based architecture allows you to add custom analyzers in minutes.
+
+---
+
+## 📸 In Action
+<div align="center">
+  <img src="https://raw.githubusercontent.com/YOUR_USERNAME/decodeX/main/assets/decodex_screenshot.png" width="90%" alt="decodeX TUI Screenshot">
+</div>
 
 ---
 
@@ -14,93 +62,101 @@
 ### 🔍 Advanced Malware Triage
 - **Deep PE Inspection**: Powered by `pefile` for industrial-grade static analysis.
 - **Imphash Support**: Calculate import hashes for malware family attribution.
-- **Suspicious Indicator Detection**: Automatic detection of RWX sections, suspicious imports (IAT), and high-entropy payloads.
-- **Overlay Detection**: Identify hidden data appended to binaries.
+- **Suspicious Indicator Detection**: Automatic detection of RWX sections, suspicious imports, and high-entropy payloads.
+- **overlay Detection**: Identify hidden data appended to binaries.
 
 ### 🛠️ Core Tools
 - **Auto-Decode Engine**: Multi-branch decoding with readability scoring.
 - **Encoding/Decoding**: Base64, Hex, and advanced XOR (brute-force support).
 - **Risk Scoring**: Heuristic-based risk engine with visual indicators.
+- **YARA Signature Engine**: Industrial-grade signature matching for malware family detection.
 
 ---
 
-## 📦 Installation & Setup
+## 🏗️ Architecture
 
-### Local Setup (Go + Python)
-### 1. Global Installation (Recommended)
-To use the `decodex` command from anywhere:
+```mermaid
+graph TD
+    A[User Interface - Go TUI] -->|JSON Commands| B[Python Controller]
+    B --> C[Analysis Engine]
+    C --> D[Plugin Manager]
+    D --> E[PE Plugin]
+    D --> F[XOR Plugin]
+    D --> G[YARA Plugin]
+    D --> H[Entropy Plugin]
+    E -.-> I[Target Binary]
+    F -.-> I
+    G -.-> I
+    H -.-> I
+    C --> J[Risk Engine]
+    J --> K[Final JSON Report]
+    K -->|Display| A
+```
+
+---
+
+## 📦 Installation
+
+### 1. Simple Installation (CLI only)
 ```bash
-git clone https://github.com/YOUR_USERNAME/decodeX.git
-cd decodeX
 pip install .
 ```
-Now you can simply run `decodex` in your terminal!
 
-### 2. Manual Installation
-```bash
-pip install -r requirements.txt
-python main.py --help
-```
+### 2. Full Installation (with TUI)
+1. **Clone the repo**:
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/decodeX.git
+   cd decodeX
+   ```
+2. **Setup Python Environment**:
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+   pip install -r requirements.txt
+   ```
 3. **Build the TUI**:
    ```bash
-   go build -o decodeX main.go
-   ```
-4. **Run**:
-   ```bash
-   ./decodeX
-   ```
-
-### Running with Docker
-You can run DecodeX as a containerized tool without installing local dependencies.
-
-1. **Build the image**:
-   ```bash
-   docker build -t decodex .
-   ```
-2. **Run the TUI (interactive mode)**:
-   ```bash
-   docker run -it --rm -v $(pwd):/app decodex
+   make build 
+   # Or manually: go build -o decodeX tui/main.go
    ```
 
 ---
 
-## 🛠️ Development
+## ⚡ Quick Start
 
-### Project Structure
-- `main.go`: Entry point for the Go TUI.
-- `framework/`: Backend framework and plugin engine.
-- `core/`: Core analysis and decoding logic.
-- `plugins/`: Pluggable analysis modules (PE, XOR, etc.).
-- `Dockerfile`: Multi-stage build for Go/Python hybrid environment.
-- `.github/workflows/`: CI/CD for automated builds.
-- `decodeX/rules/`: YARA signature rules (Add your own `.yar` files here).
+### Run the Interactive TUI
+```bash
+./decodeX
+```
 
----
+### Run a Fast CLI Analysis
+```bash
+decodex analyze malware.exe
+```
 
-## 🛡️ v3.0 New Feature: YARA Signature Engine
-
-DecodeX now supports industrial-grade signature matching for malware family detection.
-
-### Usage
-- **Full Dashboard Analysis**: `python -m decodeX analyze <file>`
-- **Direct Plugin Test**: `python decodeX/plugins/yara_plugin.py <file>`
-
-### Troubleshooting "Module Not Found: yara"
-If your IDE (VS Code) flags `import yara` as an error:
-1. Ensure your IDE is using the Python interpreter in `.venv/Scripts/python.exe`.
-2. Run `pip install yara-python` inside your terminal to ensure it's in the global/local path.
-3. Restart your IDE's Language Server (e.g., `Pylance: Restart Language Server` in VS Code).
+### Decode Obfuscated Strings
+```bash
+decodex base64 decode "SGVsbG8gV29ybGQ="
+decodex xor brute "0xDE 0xAD 0xBE 0xEF"
+```
 
 ---
 
-## 🤝 Contribution & Integration
-DecodeX is designed to be extensible. You can add new analysis capabilities by creating a new plugin in the `plugins/` directory.
+## 🗺️ Roadmap
+- [ ] **v3.1**: Sandbox integration (Dynamic Analysis)
+- [ ] **v3.2**: Exportable PDF/HTML reports
+- [ ] **v3.5**: Network capture (PCAP) analyzer plugin
+- [ ] **v4.0**: Machine Learning-based malware classification
 
 ---
 
-## ⚖️ Disclaimer
-This tool is intended for **educational and ethical cybersecurity use only**. Use it only on systems and data you are authorized to analyze.
+## 🤝 Contributing
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+
+## 📄 License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
-
-**Developed by Achraaf | Enhanced by Antigravity AI**
+<p align="center">
+  Developed by <b>Achraaf</b> | Enhanced by <b>Antigravity AI</b>
+</p>
