@@ -1,4 +1,8 @@
 <div align="center">
+  <img src="assets/banner.png" width="100%" alt="decodeX Banner">
+  
+  <br />
+
   <h1>🛡️ decodeX v3.0</h1>
 
   <p align="center">
