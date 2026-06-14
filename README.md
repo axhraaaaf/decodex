@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/YOUR_USERNAME/decodeX/main/assets/decodex_banner.png" width="100%" alt="decodeX Banner">
+  <img src="assets/decodex_banner.png" width="100%" alt="decodeX Banner">
   
   <br />
 
@@ -47,7 +47,7 @@ Modern malware uses multi-layered obfuscation and hidden signatures that standar
 
 ## 📸 In Action
 <div align="center">
-  <img src="https://raw.githubusercontent.com/YOUR_USERNAME/decodeX/main/assets/decodex_screenshot.png" width="90%" alt="decodeX TUI Screenshot">
+  <img src="assets/decodex_screenshot.png" width="90%" alt="decodeX TUI Screenshot">
 </div>
 
 ---
