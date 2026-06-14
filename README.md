@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/banner.png" width="100%" alt="decodeX Banner">
+  <img src="assets/gemi.png" width="100%" alt="decodeX Banner">
   
   <br />
 
