@@ -8,6 +8,8 @@
   <p align="center">
     <b>Professional cybersecurity toolkit for malware triage and multi-branch decoding.</b>
     <br />
+    <i>"Because Malware Doesn't Come in Plain Text"</i>
+    <br />
     <i>Sleek Go-based TUI | Powerful Python Analysis Engine | Industrial-Grade YARA Matching</i>
   </p>
 
